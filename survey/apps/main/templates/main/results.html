@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Results</title>
+	</head>
+	<body>
+		<h1>Submitted Info</h1>
+		<p>Name: {{ request.session.user.name }}</p>
+		<p>Location: {{ request.session.user.location }}</p>
+		<p>Language: {{ request.session.user.language }}</p>
+		<p>Comment: {{ request.session.user.comment }}
+		<form method="post" action="/">
+			{% csrf_token %}
+			<input type="submit" value="Go Back" />
+		</form>
+	</body>
+</html>
