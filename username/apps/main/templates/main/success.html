@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Success Page</title>
+	</head>
+	<body>
+	{% if messages %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+	{% endif %}
+	<h1>Usernames entered:</h1>
+	{% for user in users %}
+		<p>{{user.name}} {{user.created_at}}
+		<form action='/delete{{ user.id }}' method="post">
+			{% csrf_token %}
+			<input type='submit' value='Delete' />
+		</form></p>
+	{% endfor %}
+	</body>
+</html>

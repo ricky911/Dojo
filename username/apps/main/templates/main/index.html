@@ -5,10 +5,15 @@
 	</head>
 	<body>
 		<h1>Enter Username</h1>
-		<form action='/' method='post'>
+		<form action='/users' method='post'>
 			{% csrf_token %}
-			Username: <input type='text' name='username' />
+			Username: <input type='text' name='name' />
 			<input type='submit' value='Submit' />
 		</form>
+		{% if messages %}
+			{% for message in messages %}
+				<p>{{message}}</p>
+			{% endfor %}
+		{% endif %}
 	</body>
 </html>
