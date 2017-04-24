@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Success page</title>
+	</head>
+	<body>
+		<h1>{% if messages %}
+			{% for message in messages %}
+				{{message}}
+			{% endfor %}
+		{% endif %}<h1>
+		<h4>You have successfully registered or logged in!</h4>
+	</body>
+</html>
