@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Quote</title>
+	</head>
+	<body>
+		<h1>Welcome!</h1>
+		<h2>Register</h2>
+		<form action='/create' method='post'>
+			{% csrf_token %}
+			<p>First Name: <input type="text" name="first_name" /></p>
+			<p>Last Name: <input type="text" name="last_name" /></p>
+			<p>Email: <input type="text" name="email" /></p>
+			<p>Password: <input type="text" name="pw" /></p>
+			<p>*Password must be at least 8 characters long</p>
+			<p>Confirm Password: <input type="text" name="cpw" /></p>
+			<p>Date of Birth: <input type="date" name="dob" /></p>
+			{% if messages %}
+				{% for message in messages %}
+					{% if 'registration' in message.tags %}
+						<p>{{message}}</p>
+					{% endif%}
+				{% endfor %}
+			{% endif %}
+			<input type="submit" value="Register">
+		</form>
+		<h2>Login</h2>
+		<form action='/login' method ='post'>
+			{% csrf_token %}
+			<p>Email: <input type="text" name="email" /></p>
+			<p>Password: <input type="text" name="pw" /></p>
+			{% if messages %}
+				{% for message in messages %}
+					{% if 'login' in message.tags %}
+						<p>{{message}}</p>
+					{% endif%}
+				{% endfor %}
+			{% endif %}
+			<input type="submit" value="Login">
+		</form>
+	</body>
+</html>

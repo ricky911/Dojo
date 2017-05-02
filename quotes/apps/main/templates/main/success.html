@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Success</title>
+	</head>
+	<body>
+		<h1>Welcome, {{currentUser.name}}</h1>
+		<a href="/logout">Logout</a>
+		<h3>Add Quote</h3>
+		<form action='/addQuote' method='post'>
+			{% csrf_token %}
+			Author: <input type="text" name="author">
+			Message: <textarea name='message'></textarea>
+			<input type="submit" value="Submit" />
+		</form>
+		{% if messages %}
+			{% for message in messages %}
+				{{message}}
+			{% endfor %}
+		{% endif %}
+		<h3>Quotable Quotes</h3>
+		{% for quote in quotes %}
+			<p>{{quote.author}}</p>
+			<p>{{quote.message}}</p>
+			Posted by: <p><a href="/users/{{quote.user.id}}">{{quote.user.name}}</a></p>
+			<form action='/addFav/{{quote.id}}' method='post'>
+				{% csrf_token %}
+				<input type="submit" value="Favorite" />
+			</form>
+		{% endfor %}
+		<h1>Favorites</h1>
+		{% for favorite in currentUser.favorited.all %}
+			<p>{{favorite.author}}</p>
+			<p>{{favorite.message}}</p>
+			Posted by: <p><a href="/users/{{favorite.user.id}}">{{favorite.user.name}}</a></p>
+			<form action='/delFav/{{favorite.id}}' method='post'>
+				{% csrf_token %}
+				<input type="submit" value="Unfavorite">
+			</form>
+		{% endfor %}
+
+	</body>
+</html>

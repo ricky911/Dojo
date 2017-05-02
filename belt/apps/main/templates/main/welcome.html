@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Welcome Page</title>
+		{% load staticfiles %}
+		<link rel="stylesheet" href="{% static 'main/styles.css' %}">
+	</head>
+	<body>
+		<div class="welcome">
+			<h3>Welcome, {{current_user.first_name}}</h3>
+		</div>
+		<div class="addQuote">
+			<h4>Contribute a quote:</h4>
+			<form action='/addQuotes' method='post'>
+				{% csrf_token %}
+				Author: <input type="text" name="name">
+				Quote: <textarea name='quote'></textarea>
+				{% if messages %}
+					{% for message in messages %}
+						{% if 'new_quote' in message.tags %}
+							<p>{{message}}</p>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<a href='/logout'>Logout</a>
+		<div class="quotes">
+			<h4>Quotable Quotes</h4>
+			{% for quote in quotable_quotes %}
+				<h5>{{quote.author}}: 
+				{{quote.quote}}</h5>
+				<p>Posted by: <a href='/user/{{quote.user.id}}'>{{quote.user.first_name}}</a></p>
+				<form action='/addFav/{{quote.id}}' method='post'>
+					{% csrf_token %}
+					<input type="submit" value="Add to Favorites" />
+				</form>
+			{% endfor %}</ul>
+		</div>
+
+		<div class="favorites">
+			<h2>Favorites</h2>
+			{% for favorite in current_user.favorites.all %}
+				{{favorite.quote}}
+				<form action='/delFav/{{favorite.id}}' method='post'>
+					{% csrf_token %}
+					<input type="submit" value="Delete Favorite" />
+				</form>
+			{% endfor %}
+		</div>	
+	</body>
+</html>

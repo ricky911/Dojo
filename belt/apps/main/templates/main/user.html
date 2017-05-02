@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>User</title>
+	</head>
+	<body>
+		<h2>Posts by {{user.first_name}}</h2>
+		<h2>Count: {{count}}</h2>
+		{% for quote in quotes %}
+			<p>{{quote.author}}: {{quote.quote}}</p>
+		{% endfor %}
+	</body>
+</html>
